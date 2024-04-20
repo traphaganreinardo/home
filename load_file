@@ -1,0 +1,34 @@
+Sub ChargerDonnées()
+    Dim CheminDuFichier As String
+    Dim FeuilleSource As Worksheet
+    Dim FeuilleDestination As Worksheet
+    Dim DernièreLigne As Long
+    Dim Fichier As String
+    
+    ' Spécifiez le chemin du fichier à partir duquel vous souhaitez charger les données
+    CheminDuFichier = "C:\Chemin\Vers\Votre\Fichier.xlsx"
+    
+    ' Spécifiez le nom de la feuille dans le fichier à partir de laquelle vous souhaitez charger les données
+    FeuilleSource = "Feuil1"
+    
+    ' Spécifiez le nom de la feuille dans le classeur actuel où vous souhaitez insérer les données
+    FeuilleDestination = ThisWorkbook.Sheets("Feuil2")
+    
+    ' Ouvrir le fichier
+    Workbooks.Open CheminDuFichier
+    
+    ' Copiez les données à partir du fichier source
+    Workbooks(Fichier).Sheets(FeuilleSource).UsedRange.Copy
+    
+    ' Collez les données dans le classeur actuel
+    FeuilleDestination.Range("A1").PasteSpecial Paste:=xlPasteValues
+    
+    ' Fermez le fichier source
+    Workbooks(Fichier).Close SaveChanges:=False
+    
+    ' Libérez le presse-papiers
+    Application.CutCopyMode = False
+    
+    ' Optionnel : Ajustez les données
+    FeuilleDestination.Columns.AutoFit
+End Sub
